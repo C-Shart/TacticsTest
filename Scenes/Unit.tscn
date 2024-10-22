@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqb322is4vvnp"]
+
+[ext_resource type="Script" path="res://Unit.cs" id="1_cfuc2"]
+[ext_resource type="Texture2D" uid="uid://43amewft2k4u" path="res://Assets/Sprites/RPGMcharacter/_down idle.png" id="2_lft23"]
+[ext_resource type="Resource" uid="uid://bsbtt3f7f4nhx" path="res://Grid.tres" id="2_ucfnr"]
+
+[sub_resource type="Animation" id="Animation_14hbg"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6c74t"]
+resource_name = "selected"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1.5, 1.5, 1.5, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rkgnt"]
+_data = {
+"idle": SubResource("Animation_14hbg"),
+"selected": SubResource("Animation_6c74t")
+}
+
+[node name="Unit" type="Path2D"]
+script = ExtResource("1_cfuc2")
+Grid = ExtResource("2_ucfnr")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotates = false
+loop = false
+
+[node name="Sprite" type="Sprite2D" parent="PathFollow2D"]
+texture = ExtResource("2_lft23")
+hframes = 4
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rkgnt")
+}
